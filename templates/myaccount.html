@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+	td{
+		padding: 5px 100px;
+	}
+	th{
+		padding: 5px 50px;
+	}
+</style>
+<center>
+	<h1>My Account</h1>
+</center>
+<div class="container">
+	<center>
+	<table border="1">
+		<h3>
+			<tr>
+			<th><h3>Username </h3></th><td><h3>{{user.username}}</h3></td>
+		</tr>
+		<tr>
+			<th><h3>Firstname </h3></th><td><h3>{{user.first_name}}</h3></td>
+		</tr>
+		<tr>
+			<th><h3>Lastname </h3></th><td><h3>{{user.last_name}}</h3></td>
+		</tr>
+		<tr>
+			<th><h3>Email </h3></th><td><h3>{{user.email}}</h3></td>
+		</tr>
+		<tr>
+			<th><h3>Add Posts </h3></th><td><h3><a href="{% url 'addpost' %}"><button class="btn btn-info">Add More Post</button></a></td>
+		</tr>
+		<tr>
+			<td colspan="2"><a href="{% url 'myblog' %}"><h3>Click Here To See All Your Posts</h3></a></td>
+		</tr>
+		</h3>
+	</table>
+	</center>
+</div>
+{% endblock %}

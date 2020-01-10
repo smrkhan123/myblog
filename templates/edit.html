@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+	body{
+		background-image:linear-gradient(dodgerblue,lightgrey,lightgreen);
+	}
+</style>
+<center>
+	<h1>Add Your Post Here</h1>
+</center>
+<div class="container" style="margin-bottom: 100px;">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+	<form method="POST" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+		{% if posts %}
+		<div class="form-group" style="padding: 5px 0px;">
+			<h2>Title</h2>
+			<input type="text" class='form-control' name="title" value="{{posts.title}}">
+		</div>
+		<div class="form-group" style="padding: 5px 0px;">
+			<h2>Body</h2>
+			<textarea class="form-control" rows="15" name='body'>{{posts.body}}</textarea>
+		</div>
+		<div class="form-group" style="padding: 5px 0px;">
+			<h2>Image</h2>
+			<div class="row">
+				<div class="col-md-10">
+					<input type="file" name='img' class='form-control'>
+				</div>
+				<div class="col-md-2">
+					<a href="/media/{{posts.image}}"><img src="/media/{{posts.image}}" width="responsive" height="100"></a>
+				</div>
+			</div>
+		</div>
+		<div class="form-group" style="padding: 5px 0px;">
+			<h2>Category</h2>
+			<select class="form-control" name="category">
+				<option value="">Select</option>
+				<option value="entertainment" {% if posts.category == 'entertainment' %} selected {% endif %}>Entertainment</option>
+				<option value="sports" {% if posts.category == 'sports' %} selected {% endif %}>Sports</option>
+				<option value="personal_life" {% if posts.category == 'personal_life' %} selected {% endif %}>Personal Life</option>
+				<option value="health" {% if posts.category == 'health' %} selected {% endif %}>Health</option>
+				<option value="travel" {% if posts.category == 'travel' %} selected {% endif %}>Travel</option>
+			</select>
+		</div>
+		<input type="text" style='display:none' value="{{user.username}}" name="user"/>
+		{% endif %}
+		<center>
+		<div class="form-group">
+			<button type="submit" class="btn btn-success" style="padding: 10px 50px;">Submit</button>
+		</div>
+		</center>
+
+	</form>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+{% endblock %}

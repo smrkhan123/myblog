@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<style type="text/css">
+	body{
+		background-image: linear-gradient(dodgerblue,lightgrey,lightgreen);
+		height: 700px;
+	}
+</style>
+<div class="container">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<h1>{{post.title}}</h1>
+		Author: <i><strong>{{post.user}} </strong></i><br><i>Published On:<strong> {{post.date}}</strong></i><br><br>
+
+			<img src="/media/{{post.image}}" width="750" height="300"><br><br>
+		
+		<p style="font-size: 18px;">
+			{{post.body}}
+			
+		</p>
+		<br>
+	<form method="POST">
+		<a href="{% url 'likes' post.id %}" style="text-decoration: none;"><span class="label label-success" style="font-size: 15px;">Like:</span>&nbsp;&nbsp;{{c}}</a>
+	</form>
+	<br>
+	<form method="POST" action="{% url 'comments' post.id %}">
+		{% csrf_token %}
+		<div class="form-group">
+			<h4>Comment:</h4>
+			<textarea rows="3" class="form-control" name="comment"></textarea>
+		</div>
+		<input type="text" style='display:none' value="{{user.username}}" name="user"/>
+		<div class="form-group">
+			<a href="{% url 'comments' post.id %}"><button class="btn btn-info">Comment</button></a>
+		</div>
+	</form>
+	<br>
+	<div style="margin-bottom: 100px;">
+		<h3 style="margin-bottom: 30px;">All Comments</h3>
+		{% for i in comm %}
+			<p><strong>{{i.1}}: </strong>&nbsp;&nbsp;&nbsp;&nbsp;{{i.2}}&nbsp;&nbsp;</p>
+		{% endfor %}
+	</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>
+
+{% endblock %}
